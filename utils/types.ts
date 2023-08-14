@@ -22,7 +22,7 @@ export interface Dish {
     _type: string
     _updatedAt: string
     description: string
-    image: any[]
+    image: Image
     name: string
     price: number
     rating: number
