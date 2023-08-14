@@ -63,7 +63,7 @@ const BasketScreen: React.FC<NativeStackScreenProps<RootStackParamList, 'BasketS
                     <Text className='font-extrabold'>Total</Text>
                     <Text className='font-extrabold'>{CurrencyFormatter(total + 6.99)}</Text>
                 </View>
-                <TouchableOpacity className='rounded-lg bg-[#00ccbb] p-4'>
+                <TouchableOpacity className='rounded-lg bg-[#00ccbb] p-4' onPressIn={() => navigation.navigate('PreparingOrderScreen')}>
                     <Text className='text-center text-white text-lg font-bold'>Place Order</Text>
                 </TouchableOpacity>
             </View>
