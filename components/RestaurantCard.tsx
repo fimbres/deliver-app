@@ -13,6 +13,7 @@ interface RestaurantCardProps {
     dishes: number;
     long: number;
     lat: number;
+    onPress: () => void;
 }
 
 const RestaurantCard: React.FC<RestaurantCardProps> = ({
@@ -26,9 +27,10 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
     dishes,
     long,
     lat,
+    onPress,
 }) => {
   return (
-    <TouchableOpacity className='bg-white mr-3 shadow'>
+    <TouchableOpacity className='bg-white mr-3 shadow' onPress={onPress}>
       <Image source={{ uri: imageUrl }} className='h-36 w-56 rounded-sm'/>
       <View className='px-3 pb-4'>
         <Text className='font-bold text-lg pt-2'>{title}</Text>

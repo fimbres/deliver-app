@@ -10,9 +10,10 @@ interface FeaturedRowProps {
     title: string;
     description: string;
     restaurants: Restaurant[];
+    onPress: (restaurantId: Restaurant) => void;
 }
 
-const FeaturedRow: React.FC<FeaturedRowProps> = ({ id, title, description, restaurants }) => {
+const FeaturedRow: React.FC<FeaturedRowProps> = ({ id, title, description, restaurants, onPress }) => {
   return (
     <View>
       <View className='mt-4 flex-row items-center justify-between px-4'>
@@ -29,7 +30,7 @@ const FeaturedRow: React.FC<FeaturedRowProps> = ({ id, title, description, resta
         className='pt-4'
       >
         {restaurants?.map(restaurant => (
-          <RestaurantCard key={restaurant._rev} id={restaurant._id} imageUrl={urlFor(restaurant.image).url()} title={restaurant.name} rating={restaurant.rating} genre={restaurant.type.title} address={restaurant.address} shortDescription={restaurant.short_description} dishes={restaurant.dishes.length} long={restaurant.lng} lat={restaurant.lat} />
+          <RestaurantCard key={restaurant._rev} id={restaurant._id} imageUrl={urlFor(restaurant.image).url()} title={restaurant.name} rating={restaurant.rating} genre={restaurant.type.title} address={restaurant.address} shortDescription={restaurant.short_description} dishes={restaurant.dishes.length} long={restaurant.lng} lat={restaurant.lat} onPress={() => onPress(restaurant)} />
         ))}
       </ScrollView>
     </View>
