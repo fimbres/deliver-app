@@ -11,6 +11,8 @@ const BasketIcon: React.FC<BasketIconProps> = ({ onPress }) => {
   const { items, getTotalQuantity } = useBasketStore();
   const total = getTotalQuantity();
 
+  if(items.length === 0) return null;
+
   return (
     <View className='absolute bottom-10 w-full z-50'>
       <TouchableOpacity className='mx-5 bg-[#00ccbb] p-4 rounded-lg flex-row items-center space-x-1' onPressIn={onPress}>
