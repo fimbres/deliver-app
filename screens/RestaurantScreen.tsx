@@ -53,7 +53,7 @@ const RestaurantScreen: React.FC<NativeStackScreenProps<RootStackParamList, 'Res
 				))}
 			</View>
 		</ScrollView>
-		<BasketIcon onPress={() => navigation.navigate('HomeScreen')}/>
+		<BasketIcon onPress={() => navigation.navigate('BasketScreen')}/>
 	</>
   )
 }
