@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, Image, SafeAreaView, Text, TextInput, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ChevronDownIcon, UserIcon, AdjustmentsVerticalIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
 import client from '../utils/sanity';
 import { FeaturedSection } from '../utils/types';
+import { RootStackParamList } from '../App';
 
-const HomeScreen = () => {
-  const navigation = useNavigation();
+const HomeScreen: React.FC<NativeStackScreenProps<RootStackParamList, 'HomeScreen'>> = ({ navigation }) => {
   const [featuredCategories, setFeaturedCategories] = useState<FeaturedSection[]>([]);
 
   useEffect(() => {
@@ -58,8 +58,9 @@ const HomeScreen = () => {
         <Categories />
         
         {featuredCategories?.map(category => (
-          <FeaturedRow key={category._id} id={category._id} title={category.name} description={category.short_description} restaurants={category.restaurants} />
+          <FeaturedRow key={category._id} id={category._id} title={category.name} description={category.short_description} restaurants={category.restaurants} onPress={restaurant => navigation.navigate('RestaurantScreen', { restaurant })} />
         ))}
+        <View className='h-20'/>
       </ScrollView>
     </SafeAreaView>
   )
