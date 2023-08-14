@@ -1,10 +1,22 @@
-import React from 'react'
-import { View, Text, ScrollView } from 'react-native'
-import CategoryCard from './CategoryCard';
+import React, { useEffect, useState } from 'react'
+import { ScrollView } from 'react-native'
 
-const url = 'https://img.freepik.com/free-photo/flat-lay-assortment-with-delicious-brazilian-food_23-2148739179.jpg?w=1800&t=st=1691970982~exp=1691971582~hmac=cebe7ccec50ceaf0a43848a8d216e6c9adf1755386b886f37daeb5084475ceff';
+import CategoryCard from './CategoryCard';
+import { Type } from '../utils/types';
+import client, { urlFor } from '../utils/sanity';
 
 const Categories: React.FC = () => {
+  const [categories, setCategories] = useState<Type[]>([]);
+
+  useEffect(() => {
+    client.fetch(`
+      *[_type == 'category']
+    `).then((data: Type[]) => {
+      setCategories(data);
+    });
+  }, []);
+  
+
   return (
     <ScrollView
         contentContainerStyle={{
@@ -14,13 +26,9 @@ const Categories: React.FC = () => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
     >
-        <CategoryCard image={{ uri: url}} text='testing'/>
-        <CategoryCard image={{ uri: url}} text='testing'/>
-        <CategoryCard image={{ uri: url}} text='testing'/>
-        <CategoryCard image={{ uri: url}} text='testing'/>
-        <CategoryCard image={{ uri: url}} text='testing'/>
-        <CategoryCard image={{ uri: url}} text='testing'/>
-        <CategoryCard image={{ uri: url}} text='testing'/>
+        {categories.map(category => (
+          <CategoryCard key={category._rev} text={category.title} image={{ uri: urlFor(category.image).url() }} />
+        ))}
     </ScrollView>
   )
 }

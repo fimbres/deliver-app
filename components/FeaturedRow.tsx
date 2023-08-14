@@ -2,17 +2,17 @@ import React from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import { ArrowRightIcon } from 'react-native-heroicons/outline';
 import RestaurantCard from './RestaurantCard';
+import { Restaurant } from '../utils/types';
+import { urlFor } from '../utils/sanity';
 
 interface FeaturedRowProps {
     id: string;
     title: string;
     description: string;
-    featuredCategory: string;
+    restaurants: Restaurant[];
 }
 
-const harcodedUrl = 'https://img.freepik.com/free-photo/restaurant-hall-with-red-brick-walls-wooden-tables-pipes-ceiling_140725-8504.jpg?w=1800&t=st=1691972592~exp=1691973192~hmac=2eb3475c63a11f9589c457ec6ddd91fc8509550ddc7ffbf063c35a4659405ebe';
-
-const FeaturedRow: React.FC<FeaturedRowProps> = ({ id, title, description, featuredCategory }) => {
+const FeaturedRow: React.FC<FeaturedRowProps> = ({ id, title, description, restaurants }) => {
   return (
     <View>
       <View className='mt-4 flex-row items-center justify-between px-4'>
@@ -28,7 +28,9 @@ const FeaturedRow: React.FC<FeaturedRowProps> = ({ id, title, description, featu
         showsHorizontalScrollIndicator={false}
         className='pt-4'
       >
-        <RestaurantCard id='er' title='Hado´s' imageUrl={harcodedUrl} rating={3.5} genre='Japanese' address='123 Main 51' shortDescription='This is a test' dishes={4} long={3} lat={4}  />
+        {restaurants?.map(restaurant => (
+          <RestaurantCard key={restaurant._rev} id={restaurant._id} imageUrl={urlFor(restaurant.image).url()} title={restaurant.name} rating={restaurant.rating} genre={restaurant.type.title} address={restaurant.address} shortDescription={restaurant.short_description} dishes={restaurant.dishes.length} long={restaurant.lng} lat={restaurant.lat} />
+        ))}
       </ScrollView>
     </View>
   )
