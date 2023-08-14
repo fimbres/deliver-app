@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StarIcon, MapPinIcon } from 'react-native-heroicons/solid';
@@ -8,10 +8,20 @@ import { RootStackParamList } from '../App'
 import { urlFor } from '../utils/sanity';
 import DishRow from '../components/DishRow';
 import BasketIcon from '../components/BasketIcon';
+import { useRestaurantStore } from '../store/restaurantStore';
 
 const RestaurantScreen: React.FC<NativeStackScreenProps<RootStackParamList, 'RestaurantScreen'>>  = ({ navigation, route }) => {
   const { image, name, type, rating, address, short_description, dishes } = route.params.restaurant;
+  const { setRestaurant, resetRestaurant} = useRestaurantStore();
 
+  useEffect(() => {
+	setRestaurant(route.params.restaurant);
+  
+	return () => {
+	  resetRestaurant();
+	}
+  }, []);
+  
   return (
 	<>
 		<ScrollView>
