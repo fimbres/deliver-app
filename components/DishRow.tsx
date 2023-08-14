@@ -5,7 +5,7 @@ import { MinusCircleIcon, PlusCircleIcon } from 'react-native-heroicons/solid';
 import { Dish } from '../utils/types'
 import CurrencyFormatter from '../utils/currency';
 import { urlFor } from '../utils/sanity';
-import { useBasketStore } from '../store';
+import { useBasketStore } from '../store/basketStore';
 
 interface DishRowProps {
     dish: Dish;
