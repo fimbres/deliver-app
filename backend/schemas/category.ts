@@ -1,7 +1,7 @@
 export default {
     name: 'category',
     type: 'document',
-      title: 'Category',
+    title: 'Category',
     fields: [
       {
         name: 'title',
@@ -13,6 +13,12 @@ export default {
         name: 'description',
         type: 'string',
         title: 'Description',
+      },
+      {
+        name: 'image',
+        type: 'image',
+        title: 'Image of the category',
+        validation: (Rule: any) => Rule.isRequired(),
       },
     ]
   };
